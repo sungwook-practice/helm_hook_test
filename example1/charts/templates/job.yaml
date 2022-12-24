@@ -11,15 +11,16 @@ spec:
   template:
     spec:
       containers:
-      - name: pi
-        image: perl:5.34.0
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-        env:
-          - name: TZ
-            value: Asia/Seoul
-        resources:
-          limits:
-            memory: "32Mi"
-            cpu: "50m"
+        - name: main
+          image: busybox:latest
+          command: ["/bin/sh"]
+          args: ["-c", "date"]
+          env:
+            - name: TZ
+              value: Asia/Seoul
+          resources:
+            limits:
+              memory: "32Mi"
+              cpu: "50m"
       restartPolicy: Never
   backoffLimit: 1
