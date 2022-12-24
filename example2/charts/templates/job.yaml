@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  {{ .Chart.Name }}-post-install-hook-{{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app:  {{ .Chart.Name }}-post-install-hook-{{ .Release.Name }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: main
+          image: busybox:latest
+          command: ["/bin/sh"]
+          args: ["-c", "date"]
+          env:
+            - name: TZ
+              value: Asia/Seoul
+          resources:
+            limits:
+              memory: "32Mi"
+              cpu: "50m"
+      restartPolicy: Never
+  backoffLimit: 1
