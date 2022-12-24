@@ -12,7 +12,7 @@ spec:
   - name: main
     image: busybox:latest
     command: ["/bin/sh"]
-    args: ["-c", "date"]
+    args: ["-c", "date; exit 0"]
     env:
       - name: TZ
         value: Asia/Seoul
